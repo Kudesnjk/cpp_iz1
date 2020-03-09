@@ -18,7 +18,17 @@ int test_check_data_check_device(){
 
     device * dev_array = malloc(sizeof(device) * num);
 
+    if(!dev_array){
+        return ERR;
+    }
+
     int i = 0;
+
+    dev_array[i] = dev1;
+    i++;
+    dev_array[i] = dev2;
+    i--;
+
     assert(check_data(dev_array, "CD", "no", i)==OK); //проверка валидных значений
 
     dev_array[i].cur_capacity = -10;
@@ -37,11 +47,14 @@ int test_check_data_check_device(){
     i++;
     assert(check_data(dev_array, "CD", "no", i)==ID_ERR); //проверка уникальности id
 
-    int amount = 100;
-    assert(check_device(dev_array, num, amount)==OK);
+    int amount = 200;
 
-    amount = 200;
-    assert(check_device(dev_array, num, amount)!=OK);
+    assert(check_device(dev_array, num, amount)!=OK); //проверка возможности записи памяти, большей доступной
+
+    amount = 100;
+
+    assert(check_device(dev_array, num, amount)==OK); //проверка валидного количества памяти
+
     free(dev_array);
     return OK;
 }

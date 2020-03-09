@@ -21,7 +21,6 @@ script:
   - make
   - make TEST
   - valgrind ./TEST
-  - ls
   - cd ..
   - cppcheck —inconclusive —enable=all —check-config —suppress=missingIncludeSystem -I include —language=c libs
 
